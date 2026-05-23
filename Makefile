@@ -30,7 +30,7 @@ matrix_mul:     02_matrix_mul.cu     timer.h
 	$(NVCC) $(FLAGS) 02_matrix_mul.cu     -o matrix_mul
 
 image_blur:     03_image_blur.cu     timer.h
-	$(NVCC) $(FLAGS) 03_image_blur.cu     -o image_blur image.png
+	$(NVCC) $(FLAGS) 03_image_blur.cu image.png   -o image_blur 
 
 monte_carlo_pi: 04_monte_carlo_pi.cu timer.h
 	$(NVCC) $(FLAGS) 04_monte_carlo_pi.cu -lcurand -o monte_carlo_pi
