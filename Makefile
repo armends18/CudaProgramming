@@ -37,7 +37,7 @@ monte_carlo_pi: 04_monte_carlo_pi.cu timer.h
 
 run: all
 	@./vector_add
-	@./matrix_mul
+	@./matrix_mul image.png
 	@./image_blur
 	@./monte_carlo_pi
 
