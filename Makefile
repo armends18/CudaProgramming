@@ -1,19 +1,9 @@
 # Makefile — builds all four CUDA benchmarks.
 #
 # Usage:
-#   make            # compiles everything
-#   make run        # compiles, then runs each benchmark in order
-#   make clean      # deletes the binaries
-#
-# If your GPU is older or newer, change ARCH below. Common values:
-#   sm_60  Pascal  (GTX 10xx, P100)
-#   sm_70  Volta   (V100, Titan V)
-#   sm_75  Turing  (RTX 20xx, T4)
-#   sm_80  Ampere  (A100)
-#   sm_86  Ampere  (RTX 30xx)
-#   sm_89  Ada     (RTX 40xx)
-#   sm_90  Hopper  (H100)
-# Or just delete the -arch flag and nvcc will pick a default.
+#   make            # compiles everything safely
+#   make run        # compiles, then runs each benchmark in sequence
+#   make clean      # deletes the compiled binaries
 
 NVCC  := nvcc
 ARCH  := sm_75
@@ -29,16 +19,20 @@ vector_add:     01_vector_add.cu     timer.h
 matrix_mul:     02_matrix_mul.cu     timer.h
 	$(NVCC) $(FLAGS) 02_matrix_mul.cu     -o matrix_mul
 
+# FIXED: Removed 'image.png' from the compilation line. 
+# We only compile source files (.cu) here!
 image_blur:     03_image_blur.cu     timer.h
-	$(NVCC) $(FLAGS) 03_image_blur.cu image.png   -o image_blur 
+	$(NVCC) $(FLAGS) 03_image_blur.cu     -o image_blur 
 
 monte_carlo_pi: 04_monte_carlo_pi.cu timer.h
 	$(NVCC) $(FLAGS) 04_monte_carlo_pi.cu -lcurand -o monte_carlo_pi
 
+# FIXED: Moved 'image.png' here so it is supplied as an argument 
+# to the executable program at runtime.
 run: all
 	@./vector_add
 	@./matrix_mul 
-	@./image_blur 
+	@./image_blur image.png
 	@./monte_carlo_pi
 
 clean:
