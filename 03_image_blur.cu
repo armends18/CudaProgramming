@@ -9,8 +9,7 @@
 #include <vector>
 #include "timer.h"
 
-// Define the STB Image implementation flags BEFORE including them.
-// This turns the headers into executable C++ code.
+#undef stbi__err
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
